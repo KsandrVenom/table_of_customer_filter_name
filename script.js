@@ -13,9 +13,8 @@ function getDataCustomer() {
 }
 
 function createTable(data) {
-  let loadingBar = document.querySelector('.loading-bar');
-  
-  data.forEach(element => {
+  data.forEach((element, index) => {
+
     // длина таблицы
     let countHeadings = document.querySelectorAll('th');
     
@@ -47,13 +46,16 @@ function createTable(data) {
         else if (a.classList == 'registered-date') {
           a.innerHTML = `${element['name']['first']} ${element['name']['last']}`;
         }
-
         row.append(a);
       }
-    }
+
+    // полоса загрузки
+    let loadingBar = document.querySelector('.loading-bar');
+    loadingBar.value = 100 / (data.length - index);
+    } 
+
     cells();
   })
-
 }
 
 getDataCustomer();

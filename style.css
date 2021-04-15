@@ -7,3 +7,7 @@ td{
   width: 2px;
   background-color: red;
 }
+
+.loading-bar {
+  width: 100%;
+}
