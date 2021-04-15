@@ -30,29 +30,30 @@ function createTable(data) {
         let a = document.createElement('td');
         a.classList.add(countHeadings[i].classList);
         if(a.classList == 'name') {
-          a.innerHTML = `${data[i]['name']['first']} ${data[i]['name']['last']}`;
+          a.innerHTML = `${element['name']['first']} ${element['name']['last']}`;
         }
         else if (a.classList == 'picture') {
-          a.innerHTML = `<img src="${data[i]['picture']['thumbnail']}"</img>}`;
+          a.innerHTML = `<img src="${element['picture']['thumbnail']}"</img>}`;
         }
         else if (a.classList == 'location') {
-          a.innerHTML = `${data[i]['location']['state']} ${data[i]['location']['city']}`;
+          a.innerHTML = `${element['location']['state']} ${element['location']['city']}`;
         }
         else if (a.classList == 'email') {
-          a.innerHTML = `${data[i]['email']}`;
+          a.innerHTML = `${element['email']}`;
         }
         else if (a.classList == 'phone') {
-          a.innerHTML = `${data[i]['phone']}`;
-        }else if (a.classList == 'registered-date') {
-          a.innerHTML = `${data[i]['name']['first']} ${data[i]['name']['last']}`;
+          a.innerHTML = `${element['phone']}`;
+        }
+        else if (a.classList == 'registered-date') {
+          a.innerHTML = `${element['name']['first']} ${element['name']['last']}`;
         }
 
         row.append(a);
       }
     }
     cells();
-
   })
+
 }
 
 getDataCustomer();
