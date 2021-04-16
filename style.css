@@ -3,11 +3,10 @@ table {
   width: 100%;
 }
 
-td{
-  width: 2px;
-  background-color: red;
-}
-
 .loading-bar {
   width: 100%;
+}
+
+.hidden {
+  display: none;
 }

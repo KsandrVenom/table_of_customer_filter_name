@@ -20,6 +20,7 @@ function createTable(data) {
     
     // добавление строки таблицы
     let row = document.createElement('tr');
+    row.classList.add('row');
     let table = document.querySelector('.table');
     table.append(row);
 
@@ -30,6 +31,7 @@ function createTable(data) {
         a.classList.add(countHeadings[i].classList);
         if(a.classList == 'name') {
           a.innerHTML = `${element['name']['first']} ${element['name']['last']}`;
+          a.classList.add('customer');
         }
         else if (a.classList == 'picture') {
           a.innerHTML = `<img src="${element['picture']['thumbnail']}"</img>}`;
@@ -44,18 +46,37 @@ function createTable(data) {
           a.innerHTML = `${element['phone']}`;
         }
         else if (a.classList == 'registered-date') {
-          a.innerHTML = `${element['name']['first']} ${element['name']['last']}`;
+          let b = Date.parse(element['registered']['date']);
+          let registeredDate = new Date(b);
+          a.innerHTML = `${registeredDate.getDate()}.${registeredDate.getMonth() + 1}.${registeredDate.getFullYear()}`;
         }
         row.append(a);
       }
-
     // полоса загрузки
     let loadingBar = document.querySelector('.loading-bar');
     loadingBar.value = 100 / (data.length - index);
     } 
-
     cells();
+
+    // фильтр
+    let filter = document.querySelector('.filter');
+    let customers = document.querySelectorAll('.row');
+    filter.oninput = () => {
+      for (let elem of customers) {
+        elem.classList.add('hidden');
+      }
+      for (let item of customers) {
+        if (filter.value == item.children[0].innerText) {
+          item.classList.toggle('hidden');
+        }
+      }
+      
+    }
+
   })
+  
+
 }
 
 getDataCustomer();
+
