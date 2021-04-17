@@ -10,3 +10,8 @@ table {
 .hidden {
   display: none;
 }
+
+.tooltip {
+  position: fixed;
+  right: 50%;
+}

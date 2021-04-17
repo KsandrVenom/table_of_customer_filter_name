@@ -13,6 +13,8 @@ function getDataCustomer() {
 }
 
 function createTable(data) {
+  console.log(data);
+  let counter = 0;
   data.forEach((element, index) => {
 
     // длина таблицы
@@ -35,6 +37,8 @@ function createTable(data) {
         }
         else if (a.classList == 'picture') {
           a.innerHTML = `<img src="${element['picture']['thumbnail']}"</img>}`;
+          a.setAttribute('data-tooltip', counter);
+          counter++;
         }
         else if (a.classList == 'location') {
           a.innerHTML = `${element['location']['state']} ${element['location']['city']}`;
@@ -52,6 +56,7 @@ function createTable(data) {
         }
         row.append(a);
       }
+
     // полоса загрузки
     let loadingBar = document.querySelector('.loading-bar');
     loadingBar.value = 100 / (data.length - index);
@@ -61,18 +66,46 @@ function createTable(data) {
     // фильтр
     let filter = document.querySelector('.filter');
     let customers = document.querySelectorAll('.row');
+    let button = document.querySelector('.button');
+    
     filter.oninput = () => {
-      for (let elem of customers) {
-        elem.classList.add('hidden');
-      }
-      for (let item of customers) {
-        if (filter.value == item.children[0].innerText) {
-          item.classList.toggle('hidden');
+      console.log(1);
+      if (filter.value) {
+        for (let item of customers) {
+         if (!(filter.value == item.children[0].innerText)) {
+            item.classList.add('hidden');
+          }
+          else {
+            item.classList.remove('hidden');            
+          } 
+        }
+      } 
+      else  {
+        for (let item of customers) {
+          item.classList.remove('hidden');
         }
       }
-      
     }
 
+    button.onclick = () => {
+      filter.value = '';
+      for (let item of customers) {
+          item.classList.remove('hidden');
+      }
+    }
+
+    // тултип
+    let tooltip = document.querySelector('.tooltip');
+    let customersImage = document.querySelectorAll('.picture');
+    for (let item of customersImage) {
+      item.onmousemove = () => {
+        tooltip.classList.remove('hidden');
+        tooltip.innerHTML = `<img src="${data[item.getAttribute('data-tooltip')]['picture']['large']}"</img>}`;
+      }
+      item.onmouseleave = () => {
+        tooltip.classList.add('hidden');
+      }
+    }
   })
   
 
