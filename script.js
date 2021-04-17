@@ -7,17 +7,15 @@ function getDataCustomer() {
     return JSON.parse(data);
   })
   .then(data => {
-    console.log(data.results);
     return createTable(data.results);
   })
 }
 
 function createTable(data) {
-  console.log(data);
-  let counter = 0;
+  let counter = 0; // для data-tooltip
   data.forEach((element, index) => {
 
-    // длина таблицы
+    // длина таблицы- если изменится количество пользователей
     let countHeadings = document.querySelectorAll('th');
     
     // добавление строки таблицы
@@ -26,7 +24,7 @@ function createTable(data) {
     let table = document.querySelector('.table');
     table.append(row);
 
-    // добавление ячеек в строки
+    // добавление ячеек в строки, классы в ячейки, data-tooltip, преобразовнаие Date
     function cells() {
       for (let i = 0; i < countHeadings.length; i++) {
         let a = document.createElement('td');
@@ -63,13 +61,12 @@ function createTable(data) {
     } 
     cells();
 
-    // фильтр
+    // фильтр и кнопка reset
     let filter = document.querySelector('.filter');
     let customers = document.querySelectorAll('.row');
     let button = document.querySelector('.button');
     
     filter.oninput = () => {
-      console.log(1);
       if (filter.value) {
         for (let item of customers) {
          if (!(filter.value == item.children[0].innerText)) {
@@ -107,8 +104,6 @@ function createTable(data) {
       }
     }
   })
-  
-
 }
 
 getDataCustomer();
